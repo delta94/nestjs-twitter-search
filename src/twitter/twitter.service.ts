@@ -30,6 +30,8 @@ export class TwitterService {
    */
   premiumSearchTweets = async (
     query: string,
+    fromDate: string,
+    toDate: string,
   ): Promise<SearchTweetsResponse[]> => {
     let ts = new Date();
     const url = `${this.TWITTER_SEARCH_URL}/${this.TWITTER_SEARCH_TYPE}/${this.TWITTER_SEARCH_LABEL}`;
@@ -41,6 +43,8 @@ export class TwitterService {
         token,
         url,
         query,
+        fromDate,
+        toDate,
       });
     } catch (err) {
       ts = new Date();
@@ -57,8 +61,27 @@ export class TwitterService {
     token,
     url,
     query,
+    fromDate,
+    toDate,
   }: GetTweetArgs): Promise<GetTweetResponse[]> => {
     let ts = new Date();
+
+    // #YYYYMMDDHHmm #format of the fromDate and toDate input values
+
+    console.log('toDate', toDate);
+    console.log('toDate', typeof toDate);
+
+    const bodyObj: any = {
+      query,
+    };
+
+    if (fromDate) {
+      bodyObj.fromDate = fromDate;
+    }
+
+    if (toDate) {
+      bodyObj.toDate = toDate;
+    }
 
     try {
       const response = await fetch(url, {
@@ -66,9 +89,7 @@ export class TwitterService {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          query,
-        }),
+        body: JSON.stringify(bodyObj),
       });
 
       if (response.ok) {

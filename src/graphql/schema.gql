@@ -18,5 +18,5 @@ type PremiumSearchTweetsDto {
 }
 
 type Query {
-  premiumSearchTweets(query: String!): [PremiumSearchTweetsDto!]!
+  premiumSearchTweets(toDate: String, fromDate: String, query: String!): [PremiumSearchTweetsDto!]!
 }

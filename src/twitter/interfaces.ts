@@ -12,6 +12,8 @@ export interface GetTweetArgs {
   token: string;
   url: string;
   query: string;
+  fromDate?: string;
+  toDate?: string;
 }
 
 export interface GetTweetResponse {

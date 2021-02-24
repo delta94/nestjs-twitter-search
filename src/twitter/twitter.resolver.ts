@@ -47,7 +47,9 @@ export class TwitterResolver {
   @Query(() => [PremiumSearchTweetsDto])
   async premiumSearchTweets(
     @Args('query', { type: () => String }) query: string,
+    @Args('fromDate', { type: () => String, nullable: true }) fromDate: string,
+    @Args('toDate', { type: () => String, nullable: true }) toDate: string,
   ): Promise<PremiumSearchTweetsDto[]> {
-    return this.twitterService.premiumSearchTweets(query);
+    return this.twitterService.premiumSearchTweets(query, fromDate, toDate);
   }
 }
